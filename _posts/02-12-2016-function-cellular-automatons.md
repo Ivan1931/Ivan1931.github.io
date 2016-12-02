@@ -8,9 +8,9 @@ Using this monad we will derive some methods for combining cellular automatons t
 more complex cellular automaton from simple building blocks - in other words providing a means of
 abstraction and combination.
 
-This post is targeted towards people who are more familar with haskell. This is **not** a monad tutorial but rather a demonstration of a different
-monad from ones you may have scene before ;)
-If you have never seen haskell before, that's okay. Check out [learnyouahaskell](http://learnyouahaskell.com/) for the cannonical tutorial book.
+This post is targeted towards people who are more familiar with Haskell. This is **not** a monad tutorial but rather a demonstration of a different
+monad from ones you may have seen before ;)
+If you have never seen Haskell before, that's okay. Check out [learnyouahaskell](http://learnyouahaskell.com/) for the canonical tutorial book.
 
 # Problem
 A cellular automaton consists of a set of cells where each cell carries some state. 
