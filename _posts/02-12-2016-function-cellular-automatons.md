@@ -250,6 +250,7 @@ Now it's time for composition. For the rest of the post we will see how to compo
 
 ## Grid Type
 Intuitively, for two types of automatons to interact, their states have overlapping constraints. We could do this by:
+
 * Altering our types so that the GoL and wireworld share the tame types
 * Using the `Either` monad
 
@@ -260,6 +261,7 @@ A refresher on the Rules of WireWorld:
 
 ### Cell Types
 There are four types of Wireworld Cells:
+
 * Conductors
 * Electron Head
 * Electron Tail
@@ -311,6 +313,7 @@ with that?
 ![Do you even lift]({{site.url}}/assets/images/duel.jpg)
 
 Do you even lift? I most certainly do not in real life. But that's okay because haskell provides us with liftM2:
+
 ```haskell
 liftM2  :: (Monad m) => (a1 -> a2 -> r) -> m a1 -> m a2 -> m r
 liftM2 f m1 m2 = do { x1 <- m1; x2 <- m2; return (f x1 x2) }
@@ -346,6 +349,7 @@ types like `Bool`, `String` or even numbers.
 ### Interaction between Game of Life and Wire World
 Finally, let's think about a rule describing how the GoL and wireworld monads can interact. Life does after all require some form of energy, right? 
 We will define the following rule:
+
 * If Cell is Empty and precisely one neighbour is electron `Head` then become `Alive`
 * Otherwise return Empty
 
