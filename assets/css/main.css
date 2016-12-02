@@ -1,0 +1,42 @@
+body {
+    margin:40px auto;
+    max-width: 650px;
+    line-height:1.6;
+    font-size:18px;
+    color: #444;
+    padding:0 10px
+}
+
+h1,h2,h3 {
+    line-height:1.2
+}
+
+.lambda-list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.lambda-list ul li {
+    padding-left: 1em;
+    text-indent: -1em;
+}
+
+.lambda-list li:before {
+    content: "λ → ";
+    padding-right: 5px;
+}
+
+header .lambda-list li {
+    display: inline;
+}
+
+header {
+    margin-bottom: 1cm;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
+}

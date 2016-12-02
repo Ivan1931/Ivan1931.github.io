@@ -1,55 +1,20 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Not a dating profile</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-    <h2>
-        Hello
-    </h2>
-    <p>
-        Hi there, I'm Jonah. I'm a vagabond with some wunderlust
-        who daylights as a software engineer. I'm currenly living the
-        dream in Cape Town, South Africa.
-    </p>
-    <h2>
-        What are you looking at?
-    </h2>
-    <p>
-        This page is pretty much a stub for when I decide to someday blog.
-    </p>
-    <h2>
-        What am I doing at the moment?
-    </h2>
-    <p>
-        I currently work as an intern software engineer at AWS, 
-        specifically in a team known as Kumo. 
-    </p>
-    <h2>
-        What am I interested in?
-    </h2>
-    <p>
-        I have a diverse set of interests. Two big fields that seem to have a profound
-        grip on my heart are computer science and history.
-        I quite enjoy programming languages. Love picking them up. I'm also quite a
-        big fan of writing AI's to enter random competitions. For some reason (most likely
-        stockholm syndrom) I'm a bit of a haskeller.
-    </p>
-    <h2>
-        Vim or Emacs?
-    </h2>
-    <p>
-        Atom or gtfo
-    </p>
-    <h2>
-        Want to have a chat?
-    </h2>
-    <p>
-        Check out my <a href="https://github.com/Ivan1931">Github</a>
-    </p>
-</body>
-</html>
+---
+layout: default
+title: Not a dating profile
+---
+<h2>
+    Posts
+</h2>
+<ul id="posts" class="lambda-list">
+    {% for post in site.posts %}
+      <li>
+        <a href="{{ post.url }}">
+          <span>{{ post.date | date_to_string }}</span> 
+        </a>
+          → 
+        <a href="{{ post.url }}">
+          {{ post.title }}
+        </a>
+      </li>
+    {% endfor %}
+</ul>

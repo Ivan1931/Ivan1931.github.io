@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ page.title }}</title>
+        <link rel="stylesheet" type="text/css" href="{{site.url}}/assets/css/main.css">
+        <link rel="stylesheet" type="text/css" href="{{site.url}}/assets/css/syntax.css">
+    </head>
+    <body>
+        <header>
+            <ul class="lambda-list">
+                <li><a href="/">home</a></li>
+                <li><a href="/about">about</a></li>
+                <li><a href="mailto:jonah.graham.hooper@gmail.com">email</a></li>
+                <li><a href="https://github.com/Ivan1931">github</a></li>
+            </ul>
+        </header>
+        <div class="container">
+            {{ content }}
+        </div>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-87340157-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>
