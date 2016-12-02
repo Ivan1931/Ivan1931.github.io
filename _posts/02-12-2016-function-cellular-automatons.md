@@ -34,7 +34,7 @@ CS101 course. Other examples of cellular automatons include
 
 In this post I'll be focussing on automatons with 2D grids and transition functions that operate on Moore neighbourhoods.
 
-# Let's get too it
+# Let's get to it
 The first thing we should do is decide on how to represent our grid.
 
 Let's define our types:
@@ -46,12 +46,14 @@ type Grid c = Map Coord c
 
 In the first line we define our coordinate system (`Coord`) - a 2D Euclidean Space.
 In the second line we define the concept of a grid as a mapping between `Coord` and some type `c`.
-The type `c` is an arbitrary type describes the possible states of cells that can exist in our automaton.
+The type `c` is an arbitrary type describing the possible states of cells.
 
 Now that we have represented the state of grids and cells, let's represent the transition rule. 
 
 ```haskell
-newtype Rule c a = Rule { rule :: Grid c -> Coord -> a }
+newtype Rule c a = Rule { 
+    rule :: Grid c -> Coord -> a 
+}
 ```
 
 This definition is pretty much the crux of this post. We choose to represent a rule as a function that
@@ -60,7 +62,7 @@ maps a grid with a cell type `c` and a coordinate (`Coord`) to any other type `a
 In other words, our function can make use of information from the entire grid and also a specific grid coordinate
 to produce any value. We could consider the `Coord` argument in our `rule` function as a directive to view a specific cell on the grid.
 
-Any function with the same signature as `rule` can converted to a  `Rule` using the `Rule` type constructor. 
+Any function with the same signature as `rule` can be converted to a  `Rule` using the `Rule` type constructor. 
 We will see why this is useful later.
 
 # Defining type classes
@@ -75,7 +77,7 @@ let's get our feet wet by defining [Applicative](https://wiki.haskell.org/Typecl
 and [Functor](https://wiki.haskell.org/Typeclassopedia#Functor) instances.
 
 ## Functor
-I like to view functors as tuppaware boxes with labels on them. They provide a
+I like to view functors as Tupperware boxes with labels on them. They provide a
 container with some contextual information on the contained type. For example: "this tuppaware can contain
 bacon" is conceptually similar to "this HTTP Request can contain unsanitized inputs". `fmap` is a function that
 is aware of the functors context when it acts on the contained type. 
@@ -88,11 +90,9 @@ instance Functor (Rule c) where
         Rule (\ grid xy -> f $ r grid xy)
 ```
 
-
-Here we are wrapping the result of applying `r` (our transition function) to it's arguments in another function
+Here we are wrapping the result of applying `r` (our transition function) to its arguments in another function
 called `f`. Our functor is pretty cool, since we can now transform the output of our rule into something else.
 `c` is the type of cells in the automaton.
-
 
 ## Applicative
 Here is applicative instantiation for our `Rule` structure.
@@ -105,7 +105,7 @@ instance Applicative (Rule c) where
 ```
 
 We use our `Applicative` instance to specify how to apply a function that is to be evaluated in the context of our `Rule` 
-to some object that is also in that context. To do this we apply the `Rule` function `f` in it's "computational context".
+to some object that is also in that context. To do this we apply the `Rule` function `f` in its "computational context".
 In other words we apply it to the `Grid` and `Coord` arguments. This returns a function which we can then apply to the result of applying `r`
 in context. This is essentially the generalised idea of function application in a "computational context", in other words "applicative".
 
@@ -123,9 +123,9 @@ instance Monad (Rule c) where
             f' grid xy
 ```
 
-A monad can be thought of as function composition in a computational context. In our implementation of bind, we evaluate the left argument in it's context -
+A monad can be thought of as function composition in a computational context. In our implementation of bind, we evaluate the left argument in its context -
 the grid and the coord we are viewing to produce `a`. We then call `f` on `a` to create our new Monad. We are essentially performing function composition
-in a monadic context :) Our monad essentially evaluates the rule (producing `a`), takes it's result and feeds it into a another function that creates
+in a monadic context :) Our monad essentially evaluates the rule (producing `a`), takes its result and feeds it into a another function that creates
 a new rule in the same monadic context (`Coord` and state of the `Grid c`).
 
 Let's define a function called `runRule` which accepts a `Rule` and a `Grid`, applies the rule and creates a new grid based on the transition function
@@ -154,14 +154,14 @@ import Data.Default
 
 relativeFrom :: (Default c) => Coord -> Rule c c
 relativeFrom (x, y) =
-    Rule (\ grid (x', y') -> (x' + x, y' + y) `getOrZero` grid)
+    Rule (\ grid (x', y') -> (x'+x, y'+y) `getOrZero` grid)
     where getOrZero = Map.findWithDefault def
 ```
 
-`relativeFrom` also has a type of `Rule c c` because it is a rule that maps a cell on a grid to another cell on the same grid. Hence it's
+`relativeFrom` also has a type of `Rule c c` because it is a rule that maps a cell on a grid to another cell on the same grid. Hence its 
 type is the same as the grid type.
 
-Now that we have the `relativeFrom` function it is straightforward to define rules that refer to the current function being viewed and the cells in its
+Now that we have the `relativeFrom` function it is straightforward to define rules that refer to the current cell being viewed and the cells in its
 Moore_neighborhood. This is accomplished using the `self` and `neighbours` rules.
 
 ```haskell
@@ -194,7 +194,7 @@ We define `count` which finds how many items satisfy the predicate in our list.
 that does what it says on the (rule name | tin).
 
 ## Game of Life
-At last we have enough basic primitives to define something useful. Bellow is how we define a `Rule` for Conways Game of Life!
+At last we have enough basic primitives to define something useful. Below is how we define a `Rule` for Conways Game of Life!
 
 ### Rules
 Here is a refresher of the rules of the game of life
@@ -203,11 +203,11 @@ Here is a refresher of the rules of the game of life
     * If precisely two or three neighbours are alive then stay alive
     * Otherwise the cell dies from under or over population
 * If a cell is `Dead`
-    * If precisely three of it's neighbours are `Alive` then come alive
+    * If precisely three of its neighbours are `Alive` then come alive
     * Otherwise stay `Dead`!
 
 ### Data
-First we should define what a Cell it in the context of the G.O.L.
+First we should define what a Cell is in the context of the GoL.
 
 ```haskell
 data Cell = Alive | Empty
@@ -249,7 +249,7 @@ Here is an example of a Game of Life automaton generated using the `gameOfLife` 
 Now it's time for composition. For the rest of the post we will see how to compose a Game of Life with Wireworld and another Automaton.
 
 ## Grid Type
-Intuitively, for two types of automatons to interact, their states have overlapping constraints. We could do this by:
+Intuitively, for two types of automatons to interact their states have should have overlapping constraints. We could do this by:
 
 * Altering our types so that the GoL and wireworld share the tame types
 * Using the `Either` monad
@@ -300,7 +300,7 @@ wireWorld = do
         a        -> a
 ```
 
-Here is the simple wireworld diodes being simulated using the monad:
+Here are two wireworld diodes being simulated using the `wireWorld` `Rule`:
 
 ![Wire world diodes]({{site.url}}/assets/images/ww.gif)
 
@@ -342,7 +342,7 @@ The `pick` function dictates that GoL can only operate `Empty` and `Alive` cells
 Because of the general nature of `liftM2` this function could be further generalised to other rule monads that produce other
 types like `Bool`, `String` or even numbers.
 
-`wireWorld` and `gameOfLife` are coexisting in `gameOfWireWorld` bellow:
+`wireWorld` and `gameOfLife` are coexisting in `gameOfWireWorld` below:
 
 ![Game of WireWorld]({{site.url}}/assets/images/ww-gol.gif)
 
@@ -364,7 +364,7 @@ comeAlive = do
         if s == def && n == 1 then
             Alive
         else
-            def -- Default value : The empty type
+            def -- Default value : Empty
 ```
 
 `comingAlive` is not very interesting and exhibits behavours we could consider regressive.
@@ -387,7 +387,7 @@ the `gameOfWireWorld` `Rule`.
 
 # Conclusion
 So there you have it folks! An example of how Monads provide powerful mechanisms for means of abstraction and combination. With a few simple components we
-could continue to build arbitrarily complex cellular automatons through composition. I created an example project which has examples, seed grid
+could continue to build arbitrarily complex cellular automatons using composition. I created an example project which has examples, seed grid
 configurations and a simpler viewer.
 You can find it [over here](https://github.com/Ivan1931/gol-rules-haskell)
 
