@@ -23,8 +23,8 @@ h1,h2,h3 {
 }
 
 .lambda-list li:before {
-    content: "λ → ";
-    padding-right: 5px;
+    content: "λ→";
+    padding-right: 3px;
 }
 
 header .lambda-list li {
