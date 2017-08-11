@@ -1,20 +1,51 @@
 ---
 layout: default
-title: Not a dating profile
+title: How not to code
 ---
 <h2>
     Posts
 </h2>
 <ul id="posts" class="lambda-list">
-    {% for post in site.posts %}
+    {% for post in site.categories.blogs %}
       <li>
-        <a href="{{ post.url }}">
-          <span>{{ post.date | date_to_string }}</span> 
-        </a>
-          → 
-        <a href="{{ post.url }}">
-          {{ post.title }}
-        </a>
+        <div class="list-item">
+          <div class="date">
+            <a href="{{ post.url }}">
+              <span>{{ post.date | date_to_string }}</span>
+            </a>
+          </div>
+          <h4 class="title">
+            <a href="{{ post.url }}">
+              {{ post.title }}
+            </a>
+          </h4>
+          <h5 class="description">
+            {{ post.description | strip_html }}
+          </h5>
+        </div>
       </li>
     {% endfor %}
 </ul>
+<h2>
+  Projects
+</h2>
+<ul id="projects" class="lambda-list">
+    {% for project in site.categories.projects %}
+      <li>
+        <div class="list-item">
+          <div class="date">
+            <a href="{{ post.url }}">
+              <span>{{ project.date | date_to_string }}</span>
+            </a>
+          </div>
+          <h4 class="title">
+            <a href="{{ post.url }}">
+              {{ project.title }}
+            </a>
+          </h4>
+          <h5 class="description">
+            {{ project.description | strip_html }}
+          </h5>
+        </div>
+      </li>
+    {% endfor %}

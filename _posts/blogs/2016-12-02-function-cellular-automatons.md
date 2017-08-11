@@ -2,6 +2,8 @@
 title: Functional cellular automatons
 layout: default
 permalink: /functional-cellular-automatons/
+categories: blogs
+description: In this post I describe a project where I created a monadic cellular automaton library in haskell. I'll showcase why the library is viable and how to use it to make a cellular automaton.
 ---
 # Intro
 In this post I'm going to show you how to specify a monad for creating cellular automatons on 2D grid.
