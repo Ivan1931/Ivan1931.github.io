@@ -24,6 +24,11 @@ h1,h2,h3 {
   padding-left: 0;
 }
 
+.index-title {
+  padding-bottom:0.75em;
+  border-bottom: dashed 2px;
+}
+
 .list-item {
   border: 1px rgb(170,170,170) solid;
   padding:0.2em;
@@ -56,12 +61,14 @@ header .navbar a {
 
 header {
   display: flex;
+  align-items: stretch;
   justify-content: center;
   padding-bottom: 1em;
   margin-bottom: 1em;
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
+
 .nav-link {
   color: #444;
   text-decoration: none;
@@ -76,6 +83,32 @@ header {
 .nav-link:hover {
   background-color: rgba(1, 1, 1, 0.05);
   border-bottom: solid 3px;
+}
+
+.navbar-responsive {
+  display: none;
+
+  a {
+    @extend .nav-link;
+    display: block;
+
+    &:hover {
+      border-bottom: none;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    display: block;
+  }
+  .navbar {
+    display: none;
+  }
+
+  .navbar-responsive {
+    display: block;
+  }
 }
 
 img {

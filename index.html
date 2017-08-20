@@ -2,8 +2,8 @@
 layout: default
 title: How not to code
 ---
-<h2>
-    Posts
+<h2 class="index-title">
+    λ posts →
 </h2>
 <ul id="posts" class="lambda-list">
     {% for post in site.categories.blogs %}
@@ -26,20 +26,20 @@ title: How not to code
       </li>
     {% endfor %}
 </ul>
-<h2>
-  Projects
+<h2 class="index-title">
+  λ projects →
 </h2>
 <ul id="projects" class="lambda-list">
     {% for project in site.categories.projects %}
       <li>
         <div class="list-item">
           <div class="date">
-            <a href="{{ post.url }}">
+            <a href="{{ project.url }}">
               <span>{{ project.date | date_to_string }}</span>
             </a>
           </div>
           <h4 class="title">
-            <a href="{{ post.url }}">
+            <a href="{{ project.url }}">
               {{ project.title }}
             </a>
           </h4>

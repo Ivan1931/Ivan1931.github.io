@@ -1,0 +1,69 @@
+<script type="text/javascript">
+    {% include assets/js/plop.bundle.js %}
+</script>
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+
+    button {
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+    }
+</style>
+<div id="begin-editor">
+    <pre class="viewer">
+    </pre>
+    <textarea class="editor">
+begin
+  hello := 1 ;
+  world := 2;
+  call q;
+end
+</textarea>
+    <button class="evaluate-button">Evaluate</button>
+</div>
+<div id="evaluator">
+    <pre class="viewer">
+    </pre>
+    <textarea class="editor">
+const
+  one = 1,
+  three = 3;
+
+var n;
+
+procedure addOne; n := n + one;
+
+procedure addThree; n := n + three;
+
+begin
+  n := 1;
+  while n < 20 do begin
+    print n;
+    if odd n then begin
+      call addOne;
+    end;
+    if odd n+1 then begin
+      call addThree;
+    end;
+  end;
+end
+</textarea>
+    <button class="evaluate-button">Evaluate</button>
+</div>
+
+<script type="text/javascript">
+    Plop.Viewer.initParser("begin-editor", Plop.Parser.Statement.parse)
+    Plop.Viewer.initEvaluator("evaluator", function (contents) {
+        var text = "";
+        var result = Plop.Parser.Parser.parse(contents)
+        Plop.Evaluator.evaluate(result, function (input) {
+            text += `${input}\n`
+        })
+        console.log("Evaluation result:")
+        console.log(text)
+        return text
+    })
+    </script>
